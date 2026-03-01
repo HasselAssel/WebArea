@@ -1,13 +1,18 @@
+const format = "CompressionStream" in window &&
+               CompressionStream.supportedFormats?.includes?.("brotli")
+               ? "brotli"
+               : "gzip";
+
 async function compress(bytes) {
   const stream = new Blob([bytes]).stream()
-    .pipeThrough(new CompressionStream("brotli"));
+    .pipeThrough(new CompressionStream(format));
 
   return new Uint8Array(await new Response(stream).arrayBuffer());
 }
 
 async function decompress(compressedBytes) {
   const stream = new Blob([compressedBytes]).stream()
-    .pipeThrough(new DecompressionStream("brotli"));
+    .pipeThrough(new DecompressionStream(format));
 
   return new Uint8Array(await new Response(stream).arrayBuffer());
 }

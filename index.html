@@ -2,12 +2,16 @@
 <html>
     <body>
         <input type="file" id="fileInput" multiple />
+
+        <input id="link" type="text" readonly value="">
+        <button onclick="copyLink()">Copy</button>
         
         <script src="terser.js"></script>
         <script src="terser_use_function.js"></script>
         <script src="compress.js"></script>
         <script src="bundle_files.js"></script>
         <script src="upload_files.js"></script>
+        <script src="register_sw.js"></script>
         <script src="app.js"></script>
     </body>
 </html>
