@@ -1,5 +1,5 @@
 const CACHE = "file-cache";
-const SW_URL = "/WebArea/sw.js"
+const SW_URL = "sw.js"
 
 async function nukeCache() {
   //const regs = await navigator.serviceWorker.getRegistrations();
