@@ -1,6 +1,6 @@
-function setLink(link) {
+function setLinkText(link) {
   const el = document.getElementById("link");
-  el.value = link;
+  el.textContent = link;
 }
 
 const input = document.getElementById("fileInput");
@@ -19,10 +19,11 @@ input.addEventListener("change", async (e) => {
   const compressedBytes= await compress(bytes);
   const base64CompressedBytes = bytesToBase64(compressedBytes);
 
-  setLink(base64CompressedBytes);
+  const text = window.location.origin + "/#" + base64CompressedBytes;
+  setLinkText(text);
 });
 
 async function copyLink() {
   const el = document.getElementById("link");
-  await navigator.clipboard.writeText(el.value);
+  await navigator.clipboard.writeText(el.textContent);
 }

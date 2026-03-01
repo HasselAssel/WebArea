@@ -37,8 +37,10 @@ async function start() {
   const files = await getFilesFromHash();
   if (!files.length) return; 
   await addFiles(files);
-  // maybe add a wait for the files to actually be registered idk!
+  // maybe add a wait for the files to actually be registered, idk if thats needed?!?!?!?!?!?!
+  await new Promise(r => setTimeout(r, 1000));
   location.href = "/index.html"
 }
 
-start()
+setLinkText(window.location.origin);
+start();
