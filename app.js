@@ -39,8 +39,8 @@ async function start() {
   await addFiles(files);
   // maybe add a wait for the files to actually be registered, idk if thats needed?!?!?!?!?!?!
   await new Promise(r => setTimeout(r, 1000));
-  location.href = "/index.html"
+  location.href = "index.html"
 }
 
-setLinkText(window.location.origin);
+setLinkText(window.location.origin + "/WebArea");
 start();
