@@ -12,8 +12,6 @@ self.addEventListener("activate", e => {
 self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
 
-  console.log("Fetching for:", url);
-
   if (url.origin !== self.location.origin) return;
 
   event.respondWith((async () => {
@@ -38,7 +36,6 @@ self.addEventListener('message', (event) => {
       const cache = await caches.open(CACHE);
 
       const req = new Request(path, { method: "GET" });
-      console.log("Added Request:", req);
 
       await cache.put(req, new Response(content, {
         headers: {
