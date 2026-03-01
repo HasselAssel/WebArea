@@ -19,7 +19,7 @@ input.addEventListener("change", async (e) => {
   const compressedBytes= await compress(bytes);
   const base64CompressedBytes = bytesToBase64(compressedBytes);
 
-  const text = window.location.origin + "/#" + base64CompressedBytes;
+  const text = "hasselassel.github.io/WebArea/#" + base64CompressedBytes;
   setLinkText(text);
 });
 
