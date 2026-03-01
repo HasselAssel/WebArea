@@ -42,5 +42,5 @@ async function start() {
   location.href = "index.html"
 }
 
-setLinkText(window.location.origin + "/WebArea");
+setLinkText(window.location.href);
 start();
