@@ -22,27 +22,3 @@ self.addEventListener("fetch", (event) => {
     return fetch(event.request);
   })());
 });
-
-self.addEventListener('message', (event) => {
-  if (event.data.type === "add_file") {
-    event.waitUntil((async () => {
-      const file = event.data.file;
-      if (!file) return;
-
-      const path = file.name;
-      const type = file.type;
-      const content = file.content;
-
-      const cache = await caches.open(CACHE);
-
-      const req = new Request(path, { method: "GET" });
-
-      await cache.put(req, new Response(content, {
-        headers: {
-          "Content-Type": type,
-          "Cache-Control": "no-store",
-        },
-      }));
-    })());
-  }
-});

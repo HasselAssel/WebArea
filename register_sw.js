@@ -2,8 +2,6 @@ const CACHE = "file-cache";
 const SW_URL = "sw.js"
 
 async function nukeCache() {
-  //const regs = await navigator.serviceWorker.getRegistrations();
-  //await Promise.all(regs.map(r => r.unregister()));
   await caches.delete(CACHE);
 }
 
@@ -12,12 +10,19 @@ async function startSW() {
 }
 
 async function addFile(file) {
-  await navigator.serviceWorker.ready;
+  const path = file.name;
+  const content = file.content;
 
-  navigator.serviceWorker.controller.postMessage({
-    type: "add_file",
-    file
-  });
+  const cache = await caches.open(CACHE);
+
+  const req = new Request(path, { method: "GET" });
+
+  await cache.put(req, new Response(content, {
+    headers: {
+      "Content-Type": "", // TODO add content type
+      "Cache-Control": "no-store",
+    },
+  }));
 }
 
 async function addFiles(files) {
