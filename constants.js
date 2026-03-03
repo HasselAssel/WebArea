@@ -1,5 +1,3 @@
-const CACHE = "file-cache"; // has to be the same here and in SW_URL file
-
 const SW_URL = "sw.js";
 
 const defaultHtmlContent = `<!DOCTYPE html>

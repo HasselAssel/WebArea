@@ -1,7 +1,3 @@
-async function nukeCache() {
-  await caches.delete(CACHE);
-}
-
 async function startSW() {
   await navigator.serviceWorker.register(SW_URL);
 }

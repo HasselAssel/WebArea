@@ -5,6 +5,14 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <script> // Nuke CACHE FIRST THING, so all other files load no problem!!!!
+            const CACHE = "file-cache"; // has to be the same here and in SW_URL file
+            async function nukeCache() {
+                await caches.delete(CACHE);
+            }
+            nukeCache();
+        </script>
+
         <input type="file" id="fileInput" multiple />
 
         <span id="status">Upload your files</span>

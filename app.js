@@ -26,7 +26,6 @@ async function start() {
     return true;
   }
   if (!(await ensureSWControlled())) return;
-  await nukeCache();
   
   const files = await getFilesFromHash();
   if (!files.length) return; 
