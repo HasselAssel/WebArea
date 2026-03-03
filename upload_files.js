@@ -4,9 +4,9 @@ function setLinkText(link) {
 }
 
 const input = document.getElementById("fileInput");
+const statusEl = document.getElementById("status");
 
 input.addEventListener("change", async (e) => {
-  const statusEl = document.getElementById("status");
   statusEl.textContent = "Processing... 🤓";
 
   const fileList = [...e.target.files];
@@ -26,10 +26,32 @@ input.addEventListener("change", async (e) => {
 
   const text = prefix + "#" + base64CompressedBytes;
   setLinkText(text);
+
   statusEl.textContent = "Done 👍";
+  
+  const space = document.createElement("div");
+  space.style.height = "10px";
+  statusEl.appendChild(space);
+
+  fileList.forEach(file => {
+    const div = document.createElement("div");
+    div.textContent = file.name;
+    statusEl.appendChild(div);
+  });
 });
 
-async function copyLink() {
+async function copyMainLink() {
   const el = document.getElementById("link");
-  await navigator.clipboard.writeText(el.textContent);
+  await copyToClipBoard(el.textContent);
+}
+
+async function copyFileOnlyLink() {
+  const el = document.getElementById("link");
+  const url = new URL(el.textContent);
+  url.searchParams.set("f", "");
+  await navigator.clipboard.writeText(url.href);
+}
+
+async function copyToClipBoard(content) {
+  await navigator.clipboard.writeText(content);
 }

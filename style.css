@@ -24,7 +24,7 @@ body {
     border: 1px solid #333;
     border-radius: 8px;
     padding: 10px;
-    width: 280px;
+    width: auto;
 }
 
 /* Button styling */
@@ -85,4 +85,108 @@ button:active {
     overflow-wrap: anywhere;
 
     white-space: pre-wrap;
+}
+
+.button-row {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    justify-content: center; /* center main button */
+    align-items: center;
+}
+
+.main-btn {
+    padding: 12px 28px;
+    font-size: 16px;
+}
+
+.file-btn {
+    position: absolute;
+    right: 0;
+    padding: 6px 14px;
+    font-size: 13px;
+}
+
+/* Tooltip base */
+.file-btn .tooltip {
+    position: absolute;
+    bottom: 120%;              /* appear above button */
+    right: 0;
+    background: #111;
+    color: #9fd3ff;
+    border: 1px solid #333;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(5px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+}
+
+/* Show on hover */
+.file-btn:hover .tooltip {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* Info button placement */
+.info-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+/* Overlay background */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Hide overlay */
+.hidden {
+    display: none;
+}
+
+/* Modal window */
+.info-window {
+    position: relative;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 30px;
+    width: 90%;
+    max-width: 500px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    color: #e6e6e6;
+}
+
+/* Close button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    color: #9fd3ff;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    background: #222;
 }

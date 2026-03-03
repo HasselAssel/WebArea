@@ -1,6 +1,3 @@
-const CACHE = "file-cache";
-const SW_URL = "sw.js"
-
 async function nukeCache() {
   await caches.delete(CACHE);
 }
