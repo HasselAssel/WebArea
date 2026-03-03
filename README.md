@@ -12,7 +12,7 @@ Rather use extern image like resources as they don't compress well and will make
 
 The default file is index.html. It also needs like a second to build.
 
-Also I dont know css so not pretty.
+Also I dont know css so not pretty (css now 100% vibe coded).
 
 Obviously inspired by [TextArea](https://textarea.my/#80jNyclXSCvKz1UIT01yLEpNVPgwf8lkAA==)
 
