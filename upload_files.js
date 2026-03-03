@@ -48,7 +48,8 @@ async function copyMainLink() {
 async function copyFileOnlyLink() {
   const el = document.getElementById("link");
   const url = new URL(el.textContent);
-  url.searchParams.set("f", "");
+  const whatWillItBe = Math.random() < 0.5 ? "f" : "d";
+  url.searchParams.set(whatWillItBe, "");
   await navigator.clipboard.writeText(url.href);
 }
 
