@@ -6,6 +6,9 @@ function setLinkText(link) {
 const input = document.getElementById("fileInput");
 
 input.addEventListener("change", async (e) => {
+  const statusEl = document.getElementById("status");
+  statusEl.textContent = "Processing... 🤓";
+
   const fileList = [...e.target.files];
 
   const files = await Promise.all(
@@ -21,9 +24,9 @@ input.addEventListener("change", async (e) => {
 
   const prefix = window.location.origin + window.location.pathname;
 
-  //const text = "hasselassel.github.io/WebArea/#" + base64CompressedBytes;
   const text = prefix + "#" + base64CompressedBytes;
   setLinkText(text);
+  statusEl.textContent = "Done 👍";
 });
 
 async function copyLink() {

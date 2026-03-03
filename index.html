@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
     <body>
         <input type="file" id="fileInput" multiple />
 
-        <button onclick="copyLink()">Copy</button>
+        <span id="status">Please upload your files. This should include an 'index.html'</span>
+
+        <button onclick="copyLink()">Copy Link</button>
         <span id="link">Here should be the domain idk why not!?!?!, should still work hopefully tho!</span>
         
         <script src="compress.js"></script>
