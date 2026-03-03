@@ -10,9 +10,9 @@ Absolute paths will hence obviously be supported when i get a "real" domain (mon
 
 Rather use extern image like resources as they don't compress well and will make the link huge (maybe even too huge).
 
-The default file is index.html. It also needs like a second to build.
+The default file is index.html.
 
-Also I dont know css so not pretty (css 100% vibe coded).
+(css 100% vibe coded 💯)
 
 Obviously inspired by [TextArea](https://textarea.my/#80jNyclXSCvKz1UIT01yLEpNVPgwf8lkAA==)
 
