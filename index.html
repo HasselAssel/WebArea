@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script>
+        <script type="module">
             const CACHE = "file-cache";
-            async function nukeCache() {
-                await caches.delete(CACHE);
-            }
-            nukeCache();
+            await caches.delete(CACHE);
         </script>
 
         <title>WebArea</title>

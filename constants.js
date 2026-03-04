@@ -1,3 +1,5 @@
+const CACHE = "file-cache";
+
 const SW_URL = "sw.js";
 
 const defaultHtmlContent = `<!DOCTYPE html>
