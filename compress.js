@@ -1,7 +1,9 @@
-const format = "CompressionStream" in window &&
+/*const format = "CompressionStream" in window &&
                CompressionStream.supportedFormats?.includes?.("brotli")
                ? "brotli"
-               : "gzip";
+               : "gzip"; // WTF is this, I was lagging??!?!?!?*/
+const format = "gzip";
+               
 
 async function compress(bytes) {
   const stream = new Blob([bytes]).stream()
