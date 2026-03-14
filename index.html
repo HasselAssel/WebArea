@@ -18,9 +18,27 @@
             <button class="main-btn" onclick="copyMainLink()">Copy Link</button>
             <button class="file-btn" onclick="copyFileOnlyLink()">
                 Copy File-Link
-                <span class="tooltip">Copies a link to only view the files</span>
+                <span class="tooltip">Copies a link to only access the files</span>
             </button>
         </div>
+        <script>
+            async function copyMainLink() {
+                const el = document.getElementById("link");
+                await copyToClipBoard(el.textContent);
+            }
+
+            async function copyFileOnlyLink() {
+                const el = document.getElementById("link");
+                const url = new URL(el.textContent);
+                const whatWillItBe = Math.random() < 0.5 ? "f" : "d";
+                url.searchParams.set(whatWillItBe, "");
+                await navigator.clipboard.writeText(url.href);
+            }
+
+            async function copyToClipBoard(content) {
+                await navigator.clipboard.writeText(content);
+            }
+        </script>
         <span id="link">Here should be the domain idk why not!?!?!, should still work hopefully tho!</span>
         
         <button id="infoBtn" class="info-btn">Info</button>
@@ -39,7 +57,7 @@
             </p>
             <p>
                 The default file loaded is "index.html."
-                If this file doesn't exist, or if one of the query parameters "?f" or "?d" is added to the URL, the files will just be listed and not rendered. This link can be copied from the button on the right.
+                If this file doesn't exist, or if one of the query parameters "?f" or "?d" is added to the URL, the files will just be listed for download and not rendered. This link can be copied from the button on the right.
             </p>
             <a href="https://github.com/HasselAssel/WebArea" target="_blank" rel="noopener noreferrer">Source Code and Examples on GitHub</a>
         </div>

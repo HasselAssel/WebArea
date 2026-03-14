@@ -39,20 +39,3 @@ input.addEventListener("change", async (e) => {
     statusEl.appendChild(div);
   });
 });
-
-async function copyMainLink() {
-  const el = document.getElementById("link");
-  await copyToClipBoard(el.textContent);
-}
-
-async function copyFileOnlyLink() {
-  const el = document.getElementById("link");
-  const url = new URL(el.textContent);
-  const whatWillItBe = Math.random() < 0.5 ? "f" : "d";
-  url.searchParams.set(whatWillItBe, "");
-  await navigator.clipboard.writeText(url.href);
-}
-
-async function copyToClipBoard(content) {
-  await navigator.clipboard.writeText(content);
-}

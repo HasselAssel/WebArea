@@ -5,7 +5,7 @@ A service that lets you host your website serverless via a link that encodes the
 **No absolute paths supported** right now as i am using the subpath /WebArea/ in [hasselassel.github.io/WebArea/](https://hasselassel.github.io/WebArea/) and an absolute path would overwrite this subpath.
 (e.g., `<script src="/hallo.js"></script>` would not work, rather use `src="hallo.js"`)
 
-Absolute paths will hence obviously be supported when i get a "real" domain (money) or update the service worker (boring string management).
+Absolute paths will hence obviously be supported when i get a "real" domain (money) or update the service worker (not realistic).
 
 **No folder strucutre supported** either right now, as i dont think you can upload a folder (no research done, but assuming). Easily solvable with zip; But who cares, just flatten everything.
 
