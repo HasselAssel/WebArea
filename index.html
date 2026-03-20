@@ -16,24 +16,11 @@
             (async () => {
                 await caches.delete(CACHE);
 
-                /*if (!navigator.serviceWorker.controller) {
-                    await navigator.serviceWorker.register(SW_URL);
-                    window.location.reload();
-                    return;
-                }*/
-
                 if (!navigator.serviceWorker.controller){
                     await navigator.serviceWorker.register(SW_URL);
                     await navigator.serviceWorker.ready;
-                    if (!navigator.serviceWorker.controller){
-                        console.log("start wait");
-                        await new Promise(resolve => {
-                            navigator.serviceWorker.addEventListener("controllerchange", resolve, { once: true });
-                        });
-                        console.log("end wait");
-                    }
                 }
-                
+
                 await Promise.all([
                     loadScript("constants.js"),
                     loadScript("compress.js"),
@@ -42,7 +29,6 @@
                     loadScript("files.js")
                 ]);
                 await loadScript("app.js");
-                console.log("app")
             })();
         </script>
 
