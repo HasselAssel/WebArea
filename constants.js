@@ -1,6 +1,6 @@
-const CACHE = "file-cache";
+//const CACHE = "file-cache";
 
-const SW_URL = "sw.js";
+//const SW_URL = "sw.js";
 
 const defaultHtmlContent = `<!DOCTYPE html>
 <html>

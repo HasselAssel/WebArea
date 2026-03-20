@@ -1,9 +1,49 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script type="module">
+        <script>
             const CACHE = "file-cache";
-            await caches.delete(CACHE);
+            const SW_URL = "sw.js";
+            function loadScript(src) {
+                return new Promise((resolve, reject) => {
+                    const s = document.createElement("script");
+                    s.src = src;
+                    s.onload = resolve;
+                    s.onerror = reject;
+                    document.head.appendChild(s);
+                });
+            }
+            (async () => {
+                await caches.delete(CACHE);
+
+                /*if (!navigator.serviceWorker.controller) {
+                    await navigator.serviceWorker.register(SW_URL);
+                    window.location.reload();
+                    return;
+                }*/
+
+                if (!navigator.serviceWorker.controller){
+                    await navigator.serviceWorker.register(SW_URL);
+                    await navigator.serviceWorker.ready;
+                    if (!navigator.serviceWorker.controller){
+                        console.log("start wait");
+                        await new Promise(resolve => {
+                            navigator.serviceWorker.addEventListener("controllerchange", resolve, { once: true });
+                        });
+                        console.log("end wait");
+                    }
+                }
+                
+                await Promise.all([
+                    loadScript("constants.js"),
+                    loadScript("compress.js"),
+                    loadScript("bundle_files.js"),
+                    loadScript("upload_files.js"),
+                    loadScript("files.js")
+                ]);
+                await loadScript("app.js");
+                console.log("app")
+            })();
         </script>
 
         <title>WebArea</title>
@@ -20,74 +60,67 @@
                 Copy File-Link
                 <span class="tooltip">Copies a link to only access the files</span>
             </button>
+            <script>
+                async function copyMainLink() {
+                    const el = document.getElementById("link");
+                    await copyToClipBoard(el.textContent);
+                }
+
+                async function copyFileOnlyLink() {
+                    const el = document.getElementById("link");
+                    const url = new URL(el.textContent);
+                    const whatWillItBe = Math.random() < 0.5 ? "f" : "d";
+                    url.searchParams.set(whatWillItBe, "");
+                    await navigator.clipboard.writeText(url.href);
+                }
+
+                async function copyToClipBoard(content) {
+                    await navigator.clipboard.writeText(content);
+                }
+            </script>
         </div>
-        <script>
-            async function copyMainLink() {
-                const el = document.getElementById("link");
-                await copyToClipBoard(el.textContent);
-            }
-
-            async function copyFileOnlyLink() {
-                const el = document.getElementById("link");
-                const url = new URL(el.textContent);
-                const whatWillItBe = Math.random() < 0.5 ? "f" : "d";
-                url.searchParams.set(whatWillItBe, "");
-                await navigator.clipboard.writeText(url.href);
-            }
-
-            async function copyToClipBoard(content) {
-                await navigator.clipboard.writeText(content);
-            }
-        </script>
         <span id="link">Here should be the domain idk why not!?!?!, should still work hopefully tho!</span>
         
         <button id="infoBtn" class="info-btn">Info</button>
         <div id="infoOverlay" class="overlay hidden">
-        <div class="info-window">
-            <button class="close-btn" id="closeInfo">x</button>
-            <h2>Information</h2>
-            <p>
-                WebArea lets you turn a website into a link.
-                The whole website exists within the URL.
-                Since there is limited space in the URL, try to avoid uploading images or large files and use links for resources in your code.
-            </p>
-            <p>
-                Upload everything necessary for your website, copy the link, and then open or share it.  
-                Note that your project should not use absolute paths or nested paths (folders). As you can see, this website uses the "/WebArea/" subpath, and an absolute path would overwrite it. These issues might be fixed in the future. For more information, check out the GitHub.
-            </p>
-            <p>
-                The default file loaded is "index.html."
-                If this file doesn't exist, or if one of the query parameters "?f" or "?d" is added to the URL, the files will just be listed for download and not rendered. This link can be copied from the button on the right.
-            </p>
-            <a href="https://github.com/HasselAssel/WebArea" target="_blank" rel="noopener noreferrer">Source Code and Examples on GitHub</a>
-        </div>
-        </div>
-        <script>
-            const overlay = document.getElementById("infoOverlay");
-            document.getElementById("infoBtn").onclick = () => {
-                overlay.classList.remove("hidden");
-            };
-            document.getElementById("closeInfo").onclick = () => {
-                overlay.classList.add("hidden");
-            };
-            document.addEventListener("keydown", (e) => {
-                if (e.key === "Escape") {
+            <div class="info-window">
+                <button id="closeInfo" class="close-btn">x</button>
+                <h2>Information</h2>
+                <p>
+                    WebArea lets you turn a website into a link.
+                    The whole website exists within the URL.
+                    Since there is limited space in the URL, try to avoid uploading images or large files and use links for resources in your code.
+                </p>
+                <p>
+                    Upload everything necessary for your website, copy the link, and then open or share it.  
+                    Note that your project should not use absolute paths or nested paths (folders). As you can see, this website uses the "/WebArea/" subpath, and an absolute path would overwrite it. These issues might be fixed in the future. For more information, check out the GitHub.
+                </p>
+                <p>
+                    The default file loaded is "index.html."
+                    If this file doesn't exist, or if one of the query parameters "?f" or "?d" is added to the URL, the files will just be listed for download and not rendered. This link can be copied from the button on the right.
+                </p>
+                <a href="https://github.com/HasselAssel/WebArea" target="_blank" rel="noopener noreferrer">Source Code and Examples on GitHub</a>
+            </div>
+            <script>
+                const overlay = document.getElementById("infoOverlay");
+                document.getElementById("infoBtn").onclick = () => {
+                    overlay.classList.remove("hidden");
+                };
+                document.getElementById("closeInfo").onclick = () => {
                     overlay.classList.add("hidden");
-                }
-            });
-            const infoWindow = document.querySelector(".info-window");
-            overlay.addEventListener("click", (e) => {
-                if (!infoWindow.contains(e.target)) {
-                    overlay.classList.add("hidden");
-                }
-            });
-        </script>
-
-        <script src="constants.js"></script>
-        <script src="compress.js"></script>
-        <script src="bundle_files.js"></script>
-        <script src="upload_files.js"></script>
-        <script src="register_sw.js"></script>
-        <script src="app.js"></script>
+                };
+                document.addEventListener("keydown", (e) => {
+                    if (e.key === "Escape") {
+                        overlay.classList.add("hidden");
+                    }
+                });
+                const infoWindow = document.querySelector(".info-window");
+                overlay.addEventListener("click", (e) => {
+                    if (!infoWindow.contains(e.target)) {
+                        overlay.classList.add("hidden");
+                    }
+                });
+            </script>
+        </div>
     </body>
 </html>

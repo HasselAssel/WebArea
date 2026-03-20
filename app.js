@@ -16,17 +16,9 @@ async function getFilesFromHash() {
   return files;
 }
 
-async function start() {
-  async function ensureSWControlled() {
-    if (!navigator.serviceWorker.controller) {
-      await startSW();
-      window.location.reload();
-      return false;
-    }
-    return true;
-  }
-  if (!(await ensureSWControlled())) return;
-  
+setLinkText(window.location.href);
+
+(async () => {
   const files = await getFilesFromHash();
   if (!files.length) return; 
   await addFiles(files);
@@ -38,7 +30,4 @@ async function start() {
   } else {
     location.href = "index.html"
   }
-}
-
-setLinkText(window.location.href);
-start();
+})();

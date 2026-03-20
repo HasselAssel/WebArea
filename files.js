@@ -1,7 +1,3 @@
-async function startSW() {
-  await navigator.serviceWorker.register(SW_URL);
-}
-
 async function addFile(file) {
   const path = file.name;
   const content = file.content;
